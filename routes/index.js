@@ -1,8 +1,14 @@
-
-var express = require('express');
+/*eslint-env node */
+var app = require('../app');
+var express = require("express");
 var router = express.Router();
+var session = require("express-session");
+var request = require("request");
+var bodyParser = require("body-parser");
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index.html');
-});
+
+
+
+
+
+module.exports = router;
