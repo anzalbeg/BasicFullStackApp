@@ -1,17 +1,27 @@
-This README.md file is displayed on your project page. You should edit this 
-file to describe your project, including instructions for building and 
-running the project, pointers to the license under which you are making the 
-project available, and anything else you think would be useful for others to
-know.
+For window user
 
-We have created an empty license.txt file for you. Well, actually, it says,
-"<Replace this text with the license you've chosen for your project.>" We 
-recommend you edit this and include text for license terms under which you're
-making your code available. A good resource for open source licenses is the 
-[Open Source Initiative](http://opensource.org/).
+Local Environment Setup for The Node.js Runtime
 
-Be sure to update your project's profile with a short description and 
-eye-catching graphic.
+1.Download the latest nodejs version from 
+https://nodejs.org/en/.
 
-Finally, consider defining some sprints and work items in Track & Plan to give 
-interested developers a sense of your cadence and upcoming enhancements.
+2. Run the node-v8.0.0-x64.ms file and follow the prompts to install the Node.js. By default, the installer uses the Node.js distribution in C:\Program Files\nodejs. Restart any open command prompts for the change to take effect.
+
+3. Clone the project, Open cmd, go to project path directory and run the following command.
+                             npm install
+it will take time let the whole process complete after successfully module installation run the next command.
+
+4.  -> node app.js
+This will start the server on port 3000, now open the chrome browser and brows the http://localhost:3000.
+
+
+5 You will able to see login screen, first register your self by clicking “Register a new membership” link.
+
+6 On Register page enter your details then click on Register button, this will take 3 to 4 sec.
+
+7. login userself through your registered email address and password.
+
+8. On Dashboard page you can edit your profile image or details by clicking on profile button inside your name tag.
+
+9. Logout yourself.
+
