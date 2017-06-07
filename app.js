@@ -2,8 +2,6 @@ var express = require('express');
 var path = require('path');
 var session = require('express-session');
 var bodyParser = require('body-parser');
-var async=require('async');
-var parallel = require('middleware-flow').parallel;
 var app = express(),
 server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
@@ -11,9 +9,6 @@ server.listen(3000);
 var cfenv = require('cfenv');
 var Cloudant = require("cloudant"),
     cloudant = Cloudant("https://86a605b3-0605-4cd3-adb7-22247578dbf5-bluemix:123cca80c9ec5e3a0aeb6e0c7455091a76479329ce1e470e7ba55464f74a2ac5@86a605b3-0605-4cd3-adb7-22247578dbf5-bluemix.cloudant.com");
-var db = cloudant.db.use("login_user");
-var db1 = cloudant.db.use("user_pics");
-
 var request = require('request');
 // create a new viewing engine
 app.set('views', path.join(__dirname, 'views'));
@@ -32,26 +27,12 @@ var sess;
 var revId;
 var sessionIds = [];
 var loginuser=[];
-var queue=[];
-var rooms={};
-var names={};
-var allUsers={};
+
 var i=0;
 var insert=true;
 var register=false;
 
-// function parallell(middlewares) {
-//   return function (req, res, next) {
-//     async.each(middlewares, function (mw, cb) {
-//       mw(req, res, cb);
-//     }, next);
-//   };
-// }
-//  app.use(parallel([
-//    readUserProfile
-//  ]));
 
-//app.use(parallel(readUserProfile));
 /* GET home page. */
 app.get("/", function(req, res, next) {
     sess = req.session;
@@ -340,96 +321,9 @@ app.post("/register/post", function(req, res) {
     	
     
 });
-// app.post("/register/user", function(req, res) {
-//    if(register){
-//        res.render("index.html");
-//    }
-//    else{
-//        res.render("error.html");
-//    }
-                  
-    	
-    
-//});
 
 
-var findPeerForLoneSocket = function(socket) {
-    // this is place for possibly some extensive logic
-    // which can involve preventing two people pairing multiple times
-    if (queue.length>0) {
-        console.log("queue---inside if--- %j",queue);
-        // somebody is in queue, pair them!
-        var peer = queue.pop();
-        console.log("peer inside queue is ------ %j",peer);
-        var room = socket.id + '#' + peer.id;
-        // join them both
-        peer.join(room);
-        socket.join(room);
-        // register rooms to their names
-        rooms[peer.id] = room;
-        rooms[socket.id] = room;
-        console.log("rooms----"+JSON.stringify(rooms));
-        // exchange names between the two of them and start the chat
-        socket.on("connect2user",function(data){
-            console.log("connect2user  iss----"+data.username);
-            var socketID=names[data.username];
-            console.log("socketID  iss----"+socketID);
-           peer.emit('chat start', {'name': names[socketID], 'room':room});
-           socket.emit('chat start', {'name': names[socketID], 'room':room}); 
-        })
-        
-    } else {
-        // queue is empty, add our lone socket
-        queue.push(socket);
-    }
-}
 
-   io.on("connection", function(socket){
-	             console.log("a user connected------");
-                 socket.on('login', function(data){
-                     console.log("inside login socket----");
-                     names[data.username]=socket.id;
-                     allUsers[socket.id]=socket;
-                     console.log("namesocketID----"+JSON.stringify(names));
-                     findPeerForLoneSocket(socket);
-                     // socket.emit("amit", { msg: msg.message, user: msg.user });
-                 });
-
-                socket.on("message",function(data){
-                    console.log("message send by---"+socket.id);
-                    var room = rooms[socket.id];
-                    socket.broadcast.to(room).emit('message', data);
-                });
-
-                socket.on("leave room",function(){
-                     var room=rooms[socket.id];
-                     socket.broadcast.to(room).emit('chat end');
-                     var peerID=room.spilt('#');
-                     peerID = peerID[0] === socket.id ? peerID[1] : peerID[0];
-                     // add both current and peer to the queue
-                     findPeerForLoneSocket(allUsers[peerID]);
-                     findPeerForLoneSocket(socket);
-                });
-
-
-                // when the client emits 'typing', we broadcast it to others
-				socket.on('typing', function (data) {
-                    var room=rooms[socket.id];
-					socket.broadcast.to(room).emit('typing',data);
-				});
-
-				 // when the client emits 'stop typing', we broadcast it to others
-				socket.on('stop typing', function () {
-					socket.broadcast.emit('stop typing', {
-						username: socket.username
-					});
-				});
-    });
- 
-
-
-// get the app environment from Cloud Foundry
-//var appEnv = cfenv.getAppEnv();
 
 // start server on the specified port and binding host
 app.listen('3000', '0.0.0.0', function() {
