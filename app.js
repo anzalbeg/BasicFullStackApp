@@ -57,9 +57,13 @@ app.get("/", function(req, res, next) {
                                 }
                             });
         res.render("dashboard.html", {
-            username: sess.username,
-            sessionId: sess.sessionId,
-            src:sess._src
+              username: sess.username,
+                    sessionId: sess.sessionId,
+                    src:sess._src,
+                    email:sess.email,
+                    pass:sess.pass,
+                    dob:sess.dob,
+                    status:sess.status
         });
     } else
         res.render("index.html");
@@ -90,9 +94,13 @@ app.get("/login", function(req, res, next) {
                                 }
                             });
         res.render("dashboard.html", {
-            username: sess.username,
-            sessionId: sess.sessionId,
-            src:sess._src
+              username: sess.username,
+                    sessionId: sess.sessionId,
+                    src:sess._src,
+                    email:sess.email,
+                    pass:sess.pass,
+                    dob:sess.dob,
+                    status:sess.status
         });
     } else
         res.render("index.html");
@@ -150,6 +158,7 @@ app.post("/loginCheck", function(req, res, next) {
                     sess.number=body.body.docs[0].USERS.number;
                     sess.dob=body.body.docs[0].USERS.dob;
                     sess.src=body.body.docs[0].USERS.photo;
+		    sess.status=body.body.docs[0].USERS.status;
                     sess.sessionId = sid;
                     loginuser.push({'username':sess.username,'sessionId':sid});
                     res.send("validUser")
@@ -196,9 +205,13 @@ app.post("/login", function(req, res) {
                                 }
                             });
     	res.render("dashboard", { 
-                    username: sess.username,
+                     username: sess.username,
                     sessionId: sess.sessionId,
-                    src:sess.src
+                    src:sess.src,
+                    email:sess.email,
+                    pass:sess.pass,
+                    dob:sess.dob,
+                    status:sess.status
                 });
     }
     else {
