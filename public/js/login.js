@@ -27,7 +27,7 @@ $( "form" ).submit(function( event ) {
 				  	}
 				  	else{
 				  		jsonObj=JSON.parse(JSON.stringify(data));
-						alert("logincheck response---->>>"+JSON.stringify(jsonObj));
+						//alert("logincheck response---->>>"+JSON.stringify(jsonObj));
 						// var div = document.getElementById('#loginUsers');
 						// alert("div---id"+div);
 						// 	div.innerHTML = div.innerHTML + "<div class=\"user-panel\">"+
