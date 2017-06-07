@@ -23,7 +23,7 @@ var flag=true;
       if(flag){
            $('#emptyUser').css('display','none');
           $('#registerloader').show();
-               alert("values -********--"+JSON.stringify(values));
+             //  alert("values -********--"+JSON.stringify(values));
                
                 $.ajax({
                         url:siteUrl+"register/post",
