@@ -229,17 +229,18 @@ app.post("/setuserimage", function(req, res) {
     var src = req.body.src;
      sess = req.session;
         if(sess.email && sess.username){
-                    var jsonupdate= {  
+                     var jsonupdate= {  
                                         "_id": sess._id,
                                         "_rev": sess._rev,
                                         "USERS": {
-                                            "username": sess.username,
-                                            "password": sess.pass,
-                                            "email":    sess.email,
+                                            "username": req.body.username,
+                                            "password": req.body.password,
+                                            "email":    req.body.email,
                                             "country": sess.country,
                                             "number": sess.number,
                                             "type": sess.type,
-                                            "dob": sess.dob,
+                                            "dob": req.body.dob,
+                                            "status":req.body.status,
                                             "photo":src
                                         }
                                     };
