@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Dashboard</title>
+    <title>fullstackLTE 2 | Dashboard</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-    
+    <!-- fullstackLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
     <!-- iCheck -->
     <link rel="stylesheet" href="plugins/iCheck/flat/blue.css">
@@ -46,6 +47,10 @@
     <div id="loader"></div>
   
   	<div id="sessionIdSection" style="display:none"><%=sessionId%></div>
+    <div id="sessemail" style="display:none"><%=email%></div>
+    <div id="sesspassword" style="display:none"><%=pass%></div>
+    <div id="sessstatus" style="display:none"><%=status%></div>
+    
     <div class="wrapper">
 
       <header class="main-header">
@@ -54,7 +59,7 @@
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>A</b>LT</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Admin</b>LTE</span>
+          <span class="logo-lg"><b>fullstack</b>LTE</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -105,6 +110,35 @@
       <div class="content-wrapper">
         <div class="row" id="startChatDiv" style="display:none;">
         		<div class="col-md-3" style="margin:1%;">
+																					<div class="box box-primary direct-chat direct-chat-primary">
+																					<div class="box-header with-border">
+																							<h3 class="box-title" id="chatwith"></h3>
+																							<div class="box-tools pull-right">
+																								<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+																								<button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+																							</div>
+																						</div>
+																					<div class="box-body">
+																							<div class="direct-chat-messages">
+																								<div class="direct-chat-msg" id="directChatMessageLeft">
+																								</div>
+																								<div class="direct-chat-msg right" id="directChatMessageRight">
+																								</div>
+																							</div>
+																						</div>
+																						<div class="box-footer">
+																						<form action="#" method="post" id="send-message">
+																								<div class="input-group">
+																									<input type="text" id="message" class="typing" name="message" placeholder="Type Message ..." class="form-control">
+																									<span class="input-group-btn">
+																										<button type="button" class="btn btn-primary btn-flat" onclick="sendMessage()";>Send</button>
+																									</span>
+																								</div>
+																							</form>
+																						</div>
+																				</div>
+																				</div>
+        			
         </div>
       </div><!-- /.content-wrapper -->
 
@@ -121,6 +155,26 @@
       </div>
       <div class="modal-body">
             <div class="imageupload panel panel-default">
+                        <div class="form-group has-feedback">
+                      <input type="text" class="form-control" id="username" value="" placeholder="Full name">
+                      <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                      <input type="email" class="form-control" id="email" value="" placeholder="Email">
+                      <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                      <input type="password" class="form-control" placeholder="Password" value="" id="password" name="password">
+                      <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                      <input type="date" class="form-control" id="dob" value="" placeholder="Date of Birth ">
+                      <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                      <input type="text" class="form-control" id="status" value="" placeholder="status">
+                      <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+                    </div>
                 <div class="panel-heading clearfix">
                     <h3 class="panel-title pull-left">Upload Profile Image</h3>
                     <div class="btn-group pull-right">
@@ -157,6 +211,7 @@
 </div>
  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ <script type="text/javascript" src="../js/readUser.js"></script>
  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
    <script type="text/javascript" src="../js/bootstrap-imageupload.js"></script>
@@ -235,9 +290,9 @@
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick --> 
     <script src="plugins/fastclick/fastclick.min.js"></script>
-    <!-- AdminLTE App -->
+    <!-- fullstackLTE App -->
     <script src="dist/js/app.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
+    <!-- fullstackLTE for demo purposes -->
     <script>
       
      var sessionId123=$("#sessionIdSection").text();
@@ -251,7 +306,12 @@
          //console.log($("#userprofile").text());
         $('img[alt="User Image"]').attr('src', $("#userprofile").text());
         // $('img[alt="Image preview"]').attr('src', $("#userprofile").text());
+        $('#username').val($('#loginusername').text());
+        $('#email').val($('#sessemail').text());
+        $('#password').val($('#sesspassword').text());
+        $('#status').val($('#sessstatus').text());
        });
     </script>
   </body>
 </html>
+
