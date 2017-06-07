@@ -228,7 +228,13 @@
                                 url: siteUrl + "setuserimage",
                                 type: "POST",
                                 async: true,
-                                data:{src:src},
+                                data:{src:src,
+                                   "username":  $('#username').val,
+                                  "email":  $('#email').val,
+                                  "password":  $('#password').val,
+                                  "dob":  $('#dob').val,
+                                  "status":  $('#status').val,
+                                  },
                                 success: function(data) {
                                     if (data !== null || typeof(data) !== "undefined") {
                                      // console.log("settuser image is response---"+data);
@@ -254,7 +260,13 @@
                                         url: siteUrl + "setuserimage",
                                         type: "POST",
                                         async: true,
-                                        data:{src:src},
+                                        data:{src:src,
+                                        "username":  $('#username').val,
+                                        "email":  $('#email').val,
+                                        "password":  $('#password').val,
+                                        "dob":  $('#dob').val,
+                                        "status":  $('#status').val,
+                                        },
                                         success: function(data) {
                                             if (data !== null || typeof(data) !== "undefined") {
                                               //console.log("settuser image is response---"+data);
@@ -314,4 +326,5 @@
     </script>
   </body>
 </html>
+
 
