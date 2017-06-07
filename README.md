@@ -8,10 +8,15 @@ https://nodejs.org/en/.
 2. Run the node-v8.0.0-x64.ms file and follow the prompts to install the Node.js. By default, the installer uses the Node.js distribution in C:\Program Files\nodejs. Restart any open command prompts for the change to take effect.
 
 3. Clone the project, Open cmd, go to project path directory and run the following command.
-                             npm install
+                             
+														 npm install
+														 
 it will take time let the whole process complete after successfully module installation run the next command.
 
-4.  -> node app.js
+4.  ->
+																node app.js
+
+
 This will start the server on port 3000, now open the chrome browser and brows the http://localhost:3000.
 
 
