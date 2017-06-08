@@ -221,6 +221,7 @@
             var $imageupload = $('.imageupload');
             $imageupload.imageupload();
             $('#imageupload-reset').on('click', function() {
+	    var siteUrl = window.location.origin + "/";
                var src = $('img[alt="Image preview"]').attr('src');
                if(src){
                       $("#loader").show();
