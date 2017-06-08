@@ -17,7 +17,7 @@ it will take time let the whole process complete after successfully module insta
 																node app.js
 
 
-This will start the server on port 3000, now open the chrome browser and brows the http://localhost:3000.
+This will start the server on port 3000, now open the chrome browser and brows the http://localhost:<portid>.
 
 
 5 You will able to see login screen, first register your self by clicking “Register a new membership” link.
