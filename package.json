@@ -14,7 +14,7 @@
     "express": "4.13.x",
     "express-session": "*",
     "http": "*",
-    "request": "2.33.x",
+    "request": "2.33.x"
   },
   "repository": {},
   "engines": {
