@@ -2,10 +2,7 @@ var express = require('express');
 var path = require('path');
 var session = require('express-session');
 var bodyParser = require('body-parser');
-var app = express(),
-server = require('http').createServer(app);
-var io = require('socket.io').listen(server);
-server.listen(3000);
+var app = express();
 var cfenv = require('cfenv');
 var Cloudant = require("cloudant"),
     cloudant = Cloudant("https://86a605b3-0605-4cd3-adb7-22247578dbf5-bluemix:123cca80c9ec5e3a0aeb6e0c7455091a76479329ce1e470e7ba55464f74a2ac5@86a605b3-0605-4cd3-adb7-22247578dbf5-bluemix.cloudant.com");
@@ -339,8 +336,9 @@ app.post("/register/post", function(req, res) {
 
 
 
+var appEnv = cfenv.getAppEnv();
 // start server on the specified port and binding host
-app.listen('3000', '0.0.0.0', function() {
-  // print a message when the server starts listening
-  console.log("server starting on ");
+app.listen(appEnv.port, function() {
+
+    console.log("server starting on " + appEnv.url);
 });
